@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, ValidationError
 from functools import lru_cache
 
@@ -20,9 +20,10 @@ class Settings(BaseSettings):
 
     log_level: str = Field("INFO", env="LOG_LEVEL")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8"
+    )
         
 
 @lru_cache
